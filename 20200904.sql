@@ -106,12 +106,29 @@ FROM emp
 WHERE deptno IN (20, 30) AND hiredate >= TO_DATE('1981/06/01', 'YYYY/MM/DD');
 
 실습 11,12,13,14 과제 및 복습
+실습 11
+SELECT *
+FROM emp
+WHERE job = 'SALESMAN' 
+   OR hiredate >= TO_DATE('19810601', 'YYYYMMDD');
+
+실습 12
+SELECT *
+FROM emp
+WHERE job = 'SALESMAN'
+   OR empno LIKE '78%';
 
 실습 13
 SELECT *
 FROM emp
 WHERE job = 'SALESMAN'
-   OR empno != '78';
+   OR empno BETWEEN 7800 AND 7899;
+   
+실습 14
+SELECT *
+FROM emp
+WHERE job = 'SALESMAN' OR empno LIKE '78%' 
+  AND hiredate >= TO_DATE('19810601', 'YYYYMMDD');
 
 연산자 우선순위
 조건1 OR 조건2 AND 조건3 -- 조건1이거나 (조건2와조건3)을만족하는거 이거나
