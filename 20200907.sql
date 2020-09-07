@@ -7,13 +7,13 @@ ROWNUM : 1부터 읽어야 한다.
 
 SELECT ROWNUM rn, empno, ename
 FROM emp 
-WHERE ROWNUM BETWEEN 1 AND 10;
+WHERE ROWNUM BETWEEN 1 AND 10; 
 
 실습 row_2
 SELECT *
 FROM (SELECT ROWNUM rn, empno, ename
       FROM emp)
-WHERE rn BETWEEN 11 AND 20;
+WHERE  BETWEEN 11 AND 20;
 
 실습 row_3
 SELECT *
@@ -45,11 +45,11 @@ WHERE LOWER(ename) = 'smith';
                                     --둘다 출력되는 값은 똑같지만 위에 꺼로 쓰면 ename은 실행시마다 달라진다. 그러므로 여러번 실행해줘야 함
 SQL 칠거지악
 1. 좌변을 가공하지 말아라 (테이블 컬럼에 함수를 사용하지 말것)
-    . 함수 실행 횟수
+    . 함수 실행 횟수 최대한 적게
     . 인덱스 사용관련(추후에) 
 SELECT ename, LOWER(ename)
 FROM emp
-WHERE ename = UPPER('smith');       -- 그냥 대문자로 'SMITH'이게 제일 간결하고 편함
+WHERE ename = UPPER('smith');       -- 그냥 대문자로 'SMITH' 이게 제일 간결하고 편함
 
 문자열 관련함수
 SELECT CONCAT('Hello', ', World') concat,
@@ -112,7 +112,7 @@ FROM dual;
 하루 = 24H
 1H = 1/24일
 1/24일/60 = 1m
-1/24일/60/60 = 1s
+1/24일/60/60 = 1s    -- 일/시/분/초
 
 SELECT SYSDATE, SYSDATE +5, SYSDATE -5,
        SYSDATE + 1/24, SYSDATE + 1/24/60
