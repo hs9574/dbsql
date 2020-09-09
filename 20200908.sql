@@ -16,7 +16,7 @@ SELECT ename,
        hiredate, TO_CHAR(hiredate, 'yyyy/mm/dd hh24:mi:ss') h1,
        TO_CHAR(hiredate + 1, 'yyyy/mm/dd hh24:mi:ss') h2,
        TO_CHAR(hiredate + 1/24, 'yyyy/mm/dd hh24:mi:ss') h3,
-       TO_CHAR(TO_DATE('20200908', 'YYYYMMDD'), 'YYYY/MM/DD') h4
+       TO_CHAR(TO_DATE('20200908', 'YYYYMMDD'), 'YYYY/MM/DD') h4,
 FROM emp;
 
 날짜 : 일자 + 시분초
