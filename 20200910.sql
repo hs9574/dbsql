@@ -128,14 +128,18 @@ FROM emp
 GROUP BY TO_CHAR(hiredate, 'YYYY');
 
 실습 grp6
-SELECT COUNT(COUNT(deptno)) cnt
-FROM dept
-GROUP BY deptno;
+SELECT COUNT(*) cnt
+FROM dept;
 
 실습 grp7
 SELECT COUNT(COUNT(deptno)) cnt
 FROM emp
 GROUP BY deptno;
+
+SELECT COUNT(*)
+FROM (SELECT deptno
+      FROM emp
+      GROUP BY deptno) a;
 
 ******WHERE + JOIN SELECT SQL의 모든것******
 JOIN : 다른 테이블과 연결하여 데이터를 확장하는 문법
@@ -209,7 +213,7 @@ WHERE emp.deptno IN (20, 30);
 ORACLE 문법
 SELECT *
 FROM emp, dept
-WHERE emp.deptno = dept.deptno;
+WHERE emp.deptno = dept.deptno
   AND dept.deptno IN (20, 30);
   
 논리적인 형태에 따른 조인 구분
@@ -246,3 +250,62 @@ SELECT empno, ename, sal, grade
 FROM emp JOIN salgrade ON (sal BETWEEN losal AND hisal);
 
 데이터결합 실습 JOIN0~0_4 과제 추가
+실습 join0
+SELECT empno, ename, e.deptno, dname
+FROM emp e, dept d
+WHERE e.deptno = d.deptno
+ORDER BY deptno;
+
+실습 join0_1
+SELECT e.empno, e.ename, e.deptno,d.dname
+FROM emp e, dept d
+WHERE e.deptno = d.deptno
+  AND d.deptno IN (10, 30)
+ORDER BY empno;
+
+SELECT empno, ename, emp.deptno, dname
+FROM emp JOIN dept ON (emp.deptno = dept.deptno
+  AND emp.deptno IN (10, 30))
+ORDER BY empno;
+
+실습 join0_2
+SELECT empno, ename, sal, d.deptno, dname
+FROM emp e, dept d
+WHERE e.deptno = d.deptno
+  AND sal > 2500
+ORDER BY sal DESC;
+
+SELECT empno, ename, sal, d.deptno, dname
+FROM emp e JOIN dept d ON (e.deptno = d.deptno
+ AND sal > 2500)
+ORDER BY sal DESC;
+
+실습 join0_3
+SELECT empno, ename, sal, d.deptno, dname
+FROM emp e, dept d
+WHERE e.deptno = d.deptno
+  AND sal > 2500
+  AND empno > 7600
+ORDER BY sal DESC;
+
+SELECT empno, ename, sal, d.deptno, dname
+FROM emp e JOIN dept d ON (e.deptno = d.deptno
+  AND sal > 2500
+  AND empno > 7600)
+ORDER BY sal DESC;
+
+실습 join0_4
+SELECT empno, ename, sal, d.deptno, dname
+FROM emp e, dept d
+WHERE e.deptno = d.deptno
+  AND sal > 2500
+  AND e.empno > 7600
+  AND dname = 'RESEARCH'
+ORDER BY ename;
+
+SELECT empno, ename, sal, d.deptno, dname
+FROM emp e JOIN dept d ON (e.deptno = d.deptno
+  AND sal > 2500
+  AND e.empno > 7600
+  AND dname = 'RESEARCH')
+ORDER BY ename ;
