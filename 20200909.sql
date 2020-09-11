@@ -105,7 +105,7 @@ DECODE(col|expr1,
 
 SELECT ename, job, sal,
        CASE
-            WHEN job = 'SALESMAN' THEN sal * 1.05
+            WHEN job = 'S0ALESMAN' THEN sal * 1.05
             WHEN job = 'MANAGER' THEN sal * 1.10
             WHEN job = 'PRESIDENT' THEN sal * 1.20
             ELSE sal
