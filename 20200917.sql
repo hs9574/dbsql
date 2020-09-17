@@ -3,6 +3,8 @@
 순위       시도      시군구      kfc건수      맥도날드      버거킹      롯데이라
 1         서울시     서처구         3           4            5          6
 이런식으로 만듦
+
+내가 한 것
 SELECT  sido, sigungu,
         ROUND((NVL(SUM(CASE gb WHEN '맥도날드' THEN 1 END), 0) +
                NVL(SUM(CASE gb WHEN 'KFC' THEN 1 END), 0) +
@@ -15,6 +17,33 @@ SELECT  sido, sigungu,
 FROM fastfood
 WHERE gb IN ('KFC', '롯데리아', '버거킹', '맥도날드')
 GROUP BY sido, sigungu
+ORDER BY di DESC;
+
+SELECT ROWNUM rank, a.*
+FROM (SELECT sido, sigungu, ROUND((mac+kfc+burk)/lot, 2) di, mac, kfc, burk, lot
+      FROM (SELECT sido, sigungu,
+             NVL(SUM(CASE gb WHEN '맥도날드' THEN 1 END), 0) mac,
+             NVL(SUM(CASE gb WHEN 'KFC' THEN 1 END), 0) kfc,
+             NVL(SUM(CASE gb WHEN '버거킹' THEN 1 END), 0) burk,
+             NVL(SUM(CASE gb WHEN '롯데리아' THEN 1 END),1) lot
+      FROM fastfood
+      WHERE gb IN ('KFC', '롯데리아', '버거킹', '맥도날드')
+      GROUP BY sido, sigungu)
+      ORDER BY di DESC)a
+ORDER BY ROWNUM;                                                     --이런 식으로하면 롯데리아 매장 갯수가 0인것들은 1로됨
+
+샘이 한것 --여기다가 각 매장 갯수만 추가해주면 됨
+SELECT sido, sigungu, 
+        ROUND((NVL(SUM(DECODE(gb, 'KFC', cnt)), 0) +       
+        NVL(SUM(DECODE(gb, '버거킹', cnt)), 0) +
+        NVL(SUM(DECODE(gb, '맥도날드', cnt)), 0) ) /        
+        NVL(SUM(DECODE(gb, '롯데리아', cnt)), 1), 2) di,
+FROM 
+(SELECT sido, sigungu, gb, COUNT(*) cnt
+ FROM fastfood
+ WHERE gb IN ('KFC', '롯데리아', '버거킹', '맥도날드')
+ GROUP BY sido, sigungu, gb)
+GROUP BY sido, sigungu 
 ORDER BY di DESC;
 
 
@@ -135,7 +164,7 @@ FROM emp
 WHERE empn o = 7369;
 
 DELETE emp --이러면 emp 테이블의 데이터가 싹다 날라감
-
+ 
 DML 구문 실행시
 DBMS는 복구를 위해 로그를 남긴다
 즉 데이터 변경작업 + alpah의 작업량이 필요
