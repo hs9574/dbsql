@@ -103,7 +103,7 @@ WHERE table_name IN ('EMP', 'DEPT');
 ALTER TABLE emp ADD CONSTRAINT PK_emp PRIMARY KEY (empno);
 ALTER TABLE dept ADD CONSTRAINT PK_dept PRIMARY KEY (deptno);
 ALTER TABLE emp ADD CONSTRAINT FK_emp_dept FOREIGN KEY (deptno) REFERENCES dept (deptno);
-ALTER TABLE emp ADD CONSTRAINT FK_emp_emp FOREIGN KEY (empno) REFERENCES emp (empno);
+ALTER TABLE emp ADD CONSTRAINT FK_emp_emp FOREIGN KEY (mgr) REFERENCES emp (empno);
 
 VIEW : VIEW는 쿼리이다 (VIEW 테이블은 잘못된 표현)
        물리적인 데이터를 갖고 있지 않고, 논리적인 데이터 정의 집합이다(SELECT 쿼리)
