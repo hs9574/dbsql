@@ -172,3 +172,6 @@ INSERT ALL
         INTO emp_test2 VALUES (eno, enm)
 SELECT 9500 eno, 'brown' enm FROM dual UNION ALL
 SELECT 9998, 'sally' FROM dual;
+
+SELECT *
+FROM emp_test2;
