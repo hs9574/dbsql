@@ -64,7 +64,26 @@ CREATE INDEX idx_emp_n_03 ON emp (deptno, empno, sal, hiredate);
 ==> 오라클 입장에서 실행계획을 세우는데 도움이 된다.
 
 실습 idx4는 과제
+1) empno (=) idx_emp_n_01
+2) deptno (=), empno (=) 
+3) deptno (=) idx_dept_n_01 
+4) deptno (=) , sal(BETWEEN) idx_emp_n_02
+5) deptno (=) , loc(=) idx_dept_n_01
+CREATE INDEX idx_emp_n_01 ON emp (empno, deptno);
+CREATE INDEX idx_emp_n_02 ON emp (deptno, sal);
+CREATE INDEX idx_dept_n_01 ON dept (deptno, loc);
 
+EXPLAIN PLAN FOR
+SELECT *
+FROM emp, dept
+WHERE emp.deptno = dept.deptno
+AND emp.deptno = :deptno
+AND emp.empno LIKE :empno || '%';
+
+SELECT *
+FROM TABLE(dbms_xplan.display);
+
+   
 synonym : 동의어
 오라클 객체에 별칭을 생성한 객체
 오라클 객체를 짧은 이름으로 지어줄 수 있다
