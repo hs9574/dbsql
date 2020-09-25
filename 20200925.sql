@@ -67,7 +67,18 @@ DELETE dept_test
 WHERE deptno NOT IN (SELECT deptno FROM emp);
 
 실습 sub_a3 는 과제
+DROP TABLE emp_test;
+CREATE TABLE emp_test AS
+SELECT *
+FROM emp;
 
+본인이 속한 부서의 평균 급여보다 급여가 작은 직원 + 200
+UPDATE emp_test SET sal = sal+200
+WHERE sal <= (SELECT ROUND(AVG(sal),2) sal
+              FROM emp b
+              WHERE b.deptno=emp_test.deptno
+              GROUP BY deptno);
+              
 달력만들기 : 행을 열로 만들기-레포트 쿼리에서 자주 사용하는 형태
 주어진것 : 년원 (수업시간에는 '202009' 문자열을 사용)
 
