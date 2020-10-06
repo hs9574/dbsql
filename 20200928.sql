@@ -93,13 +93,20 @@ FROM board_test
 START WITH NVL(parent_seq, 0) = 0  /*parent_seq IS NULL 이게 선생님*/
 CONNECT BY PRIOR seq=parent_seq;
 
+실습 h7
+SELECT seq,LPAD(' ', (LEVEL-1)*3) ||  title title
+FROM board_test
+START WITH NVL(parent_seq, 0) = 0  /*parent_seq IS NULL 이게 선생님*/
+CONNECT BY PRIOR seq=parent_seq
+ORDER BY seq DESC;
+
 실습 h6-8
 SELECT seq,LPAD(' ', (LEVEL-1)*3) ||  title title,
        CONNECT_BY_ROOT(seq) gn
 FROM board_test
 START WITH parent_seq IS NULL
 CONNECT BY PRIOR seq=parent_seq
-ORDER SIBLINGS BY , seq DESC; /*계층구조를 깨지않고 정렬은 SIBLINGS사용*/
+ORDER SIBLINGS BY  seq DESC; /*계층구조를 깨지않고 정렬은 SIBLINGS사용*/
 
 실습 h9
 1.CONNECT_BY_ROOT를 활용한 그룹번호 생성
